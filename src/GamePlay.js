@@ -19,7 +19,7 @@ GamePlayManager = {
         var ninja = game.add.sprite(500, 300, 'ninja');
 
         this.tween = game.add.tween(ninja);
-        this.tween.to({x: 930, y:0}, 1500, Phaser.Easing.Quadratic.In);
+        this.tween.to({x: 930, y:0}, 1500, Phaser.Easing.Sinusoidal.InOut);
         this.tween.start();
 
     },
