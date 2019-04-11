@@ -18,13 +18,19 @@ GamePlayManager = {
 
         var ninja = game.add.sprite(500, 300, 'ninja');
 
+        ninja.inputEnabled = true;
+        ninja.input.pixelPerfectClick = true;
+        ninja.events.onInputDown.add( function(){
+            console.log("CLICK");
+        }, this);
+
 
     },
     update: function(){
     }
 }
 
-var game =  new Phaser.Game(1012, 657, Phaser.CANVAS);
+var game =  new Phaser.Game(1012, 657, Phaser.AUTO);
 
 game.state.add("gameplay", GamePlayManager);
 game.state.start("gameplay");
