@@ -19,10 +19,28 @@ GamePlayManager = {
         game.add.sprite(0,0, 'object1');
         game.add.sprite(0,0, 'object2');
 
-        var ninja = new Ninja(0,'ninja', 100, 500, 100, 400, 1, 0, 1500, 1000);
-        this.ninjaGroup.add(ninja);
-        ninja.Appear();
+        this.prepareLevel();
 
+    },
+    prepareLevel: function () {
+        var ninja1 = new Ninja(0,'ninja', 537, 400, 537, 304, 0.7, 0, 1500, 1500);
+        this.ninjaGroup.add(ninja1);
+
+        var ninja2 = new Ninja(1,'ninja', 746, -70, 746, 17, 1, 180, 1500, 1500);
+        this.ninjaGroup.add(ninja2);
+
+        game.time.events.add(1000, this.callBackShowNinja, this);
+    },
+    callBackShowNinja: function () {
+        game.time.events.add(1000, this.callBackShowNinja, this);
+        this.showNinja();
+    },
+    showNinja: function () {
+        var newNinja = this.ninjaGroup.getFirstDead();
+        console.log("SHOW NINJA:"+ newNinja);
+        if(newNinja != null) {
+            newNinja.Appear();
+        }
     },
     update: function(){
     }
