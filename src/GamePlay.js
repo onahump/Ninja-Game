@@ -14,13 +14,14 @@ GamePlayManager = {
     create: function(){
         game.add.sprite(0,0, 'background');
 
-        this.ninjagGroup = game.add.group();
+        this.ninjaGroup = game.add.group();
 
-        game.add.sprite(0,100, 'object1');
+        game.add.sprite(0,0, 'object1');
         game.add.sprite(0,0, 'object2');
 
-        var ninja = new Ninja();
-        this.ninjagGroup.add(ninja);
+        var ninja = new Ninja(0,'ninja', 100, 500, 100, 400, 1, 0, 1500, 1000);
+        this.ninjaGroup.add(ninja);
+        ninja.Appear();
 
     },
     update: function(){
