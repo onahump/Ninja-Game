@@ -20,13 +20,13 @@ Ninja = function (id, assetName, x0, y0, x1, y1, scale, angle, timeAnimation, ti
 
     this.scale.setTo(scale);
     this.anchor.setTo(0.5,1);
+    this.kill();
 }
 Ninja.prototype = Object.create(Phaser.Sprite.prototype);
 Ninja.prototype.constructor = Ninja;
 
 Ninja.prototype.Appear = function () {
-    this.x = this.x0;
-    this.y = this.y0;
+    this.reset(this.x0, this.y0);
     this.tweenIn = game.add.tween(this);
     this.tweenOut = game.add.tween(this);
 
@@ -37,6 +37,7 @@ Ninja.prototype.Appear = function () {
         this.tweenOut.start();
         this.tweenOut.onComplete.add(function () {
             console.log("END ANIMATION");
+            this.kill();
         }, this);
     }, this);
 
