@@ -13,17 +13,14 @@ GamePlayManager = {
     },
     create: function(){
         game.add.sprite(0,0, 'background');
+
+        this.ninjagGroup = game.add.group();
+
         game.add.sprite(0,100, 'object1');
         game.add.sprite(0,0, 'object2');
 
-        var ninja = game.add.sprite(500, 300, 'ninja');
-
-        ninja.inputEnabled = true;
-        ninja.input.pixelPerfectClick = true;
-        ninja.events.onInputDown.add( function(){
-            console.log("CLICK");
-        }, this);
-
+        var ninja = new Ninja();
+        this.ninjagGroup.add(ninja);
 
     },
     update: function(){
