@@ -52,12 +52,31 @@ GamePlayManager = {
         this.showNinja();
     },
     showNinja: function () {
-        var newNinja = this.ninjaGroup.getFirstDead();
+        var newNinja = this.getRandomNinja();
         console.log("SHOW NINJA:"+ newNinja);
         if(newNinja != null) {
             newNinja.Appear();
         }
     },
+    getRandomNinja: function(){
+        var ninjaAvailable = false;
+        var amountNinjas = this.ninjaGroup.length;
+
+        for(var i=0; i<amountNinjas; i++){
+            if (!this.ninjaGroup.children[i].alive) {
+                ninjaAvailable =true
+            }
+        }
+        if(!ninjaAvailable){
+            return null;
+        }
+        var randomNinja = this.ninjaGroup.children[game.rnd.integerInRange(0, amountNinjas-1)];
+        while (randomNinja.alive) {
+            randomNinja = this.ninjaGroup.children[game.rnd.integerInRange(0, amountNinjas-1)];
+        }
+        return randomNinja;
+    },
+
     update: function(){
     }
 }
