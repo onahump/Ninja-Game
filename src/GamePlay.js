@@ -11,6 +11,7 @@ GamePlayManager = {
         game.load.image('ninja' , 'assets/img/ninja.png');
         game.load.spritesheet('smoke' , 'assets/img/smoke.png',125,125,20);
         game.load.spritesheet('buttonPlay', 'assets/img/buttonPlay.png', 200,76,2);
+        game.load.bitmapFont('fontWhite', 'assets/fonts/bitmapFonts/fontWhite.png', 'assets/fonts/bitmapFonts/fontWhite.fnt');
 
     },
     create: function(){
@@ -33,6 +34,9 @@ GamePlayManager = {
 
         this.buttonPlay = game.add.button(game.width/2, game.height*0.8, 'buttonPlay', this.startGame, this, 1, 0, 1, 0);
         this.buttonPlay.anchor.setTo(0.5);
+
+        this.txtCurrentScore = game.add.bitmapText(100,35,'fontWhite', '555', 55);
+        this.txtCurrentScore.anchor.setTo(0.5);
     },
     startGame:function () {
         this.prepareLevel();
