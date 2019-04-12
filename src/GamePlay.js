@@ -9,12 +9,14 @@ GamePlayManager = {
         game.load.image('object1' , 'assets/img/objects1.png');
         game.load.image('object2' , 'assets/img/objects2.png');
         game.load.image('ninja' , 'assets/img/ninja.png');
+        game.load.spritesheet('smoke' , 'assets/img/smoke.png',125,125,20);
 
     },
     create: function(){
         game.add.sprite(0,0, 'background');
 
         this.ninjaGroup = game.add.group();
+        this.smokeGroup = game.add.group();
 
         game.add.sprite(0,0, 'object1');
         game.add.sprite(0,0, 'object2');
@@ -57,6 +59,22 @@ GamePlayManager = {
         if(newNinja != null) {
             newNinja.Appear();
         }
+    },
+    hitNinja:function (id, x , y, scale, angle) {
+        var currentSmoke =  this.smokeGroup.getFirstDead();
+        if (currentSmoke == null) {
+            currentSmoke = this.smokeGroup.create(x,y, 'smoke');
+            currentSmoke.animations.add('explode', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]);
+            currentSmoke.anchor.setTo(0.5,1);
+        }
+
+        currentSmoke.reset(x,y);
+        currentSmoke.scale.setTo(scale);
+        currentSmoke.angle = angle;
+        currentSmoke.animExplode = currentSmoke.animations.play('explode',16);
+        currentSmoke.animExplode.onComplete.add(function (sprite, animation) {
+            sprite.kill();
+        },this)
     },
     getRandomNinja: function(){
         var ninjaAvailable = false;
