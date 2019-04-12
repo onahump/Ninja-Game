@@ -6,6 +6,13 @@ Ninja = function (id, assetName, x0, y0, x1, y1, scale, angle, timeAnimation, ti
     this.events.onInputDown.add( function(){
         console.log("CLICK");
         this.kill();
+        GamePlayManager.hitNinja(this.id, this.x, this.y, this.scale.x, this.angle);
+        if (this.tweenIn != null) {
+            this.tweenIn.stop();
+        }
+        if (this.tweenOut != null) {
+            this.tweenOut.stop();
+        }
     }, this);
 
     this.id = id;
@@ -38,6 +45,12 @@ Ninja.prototype.Appear = function () {
         this.tweenOut.start();
         this.tweenOut.onComplete.add(function () {
             console.log("END ANIMATION");
+            if (this.tweenIn != null) {
+                this.tweenIn.stop();
+            }
+            if (this.tweenOut != null) {
+                this.tweenOut.stop();
+            }
             this.kill();
         }, this);
     }, this);
