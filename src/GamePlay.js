@@ -10,6 +10,7 @@ GamePlayManager = {
         game.load.image('object2' , 'assets/img/objects2.png');
         game.load.image('ninja' , 'assets/img/ninja.png');
         game.load.spritesheet('smoke' , 'assets/img/smoke.png',125,125,20);
+        game.load.spritesheet('buttonPlay', 'assets/img/buttonPlay.png', 200,76,2);
 
     },
     create: function(){
@@ -21,11 +22,17 @@ GamePlayManager = {
         game.add.sprite(0,0, 'object1');
         game.add.sprite(0,0, 'object2');
 
-        this.prepareLevel();
+        this.buttonPlay = game.add.button(game.width/2, game.height*0.8, 'buttonPlay', this.startGame, this, 1, 0, 1, 0);
+        this.buttonPlay.anchor.setTo(0.5);
 
+
+    },
+    startGame:function () {
+        this.prepareLevel();
     },
     prepareLevel: function () {
 
+        this.buttonPlay.visible = false;
         var levelConfig = {
             ninjas:[
                 {"sprite":"ninja", "x0":537, "y0":400, "x1":537, "y1":304, "scale":0.7, "angle":0, "timeAnimation":1500, "timeDelay":1500},
