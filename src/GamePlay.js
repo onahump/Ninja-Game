@@ -22,10 +22,17 @@ GamePlayManager = {
         game.add.sprite(0,0, 'object1');
         game.add.sprite(0,0, 'object2');
 
+        var pixel = game.add.bitmapData(1,1);
+        pixel.ctx.fillStyle = '#000000';
+        pixel.ctx.fillRect(0,0,1,1);
+
+        this.bgMenu = game.add.sprite(0,0,pixel);
+        this.bgMenu.width = game.width;
+        this.bgMenu.height = game.height;
+        this.bgMenu.alpha = 0.5;
+
         this.buttonPlay = game.add.button(game.width/2, game.height*0.8, 'buttonPlay', this.startGame, this, 1, 0, 1, 0);
         this.buttonPlay.anchor.setTo(0.5);
-
-
     },
     startGame:function () {
         this.prepareLevel();
@@ -33,6 +40,7 @@ GamePlayManager = {
     prepareLevel: function () {
 
         this.buttonPlay.visible = false;
+        this.bgMenu.visible = false;
         var levelConfig = {
             ninjas:[
                 {"sprite":"ninja", "x0":537, "y0":400, "x1":537, "y1":304, "scale":0.7, "angle":0, "timeAnimation":1500, "timeDelay":1500},
