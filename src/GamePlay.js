@@ -91,7 +91,6 @@ GamePlayManager = {
     },
     gameOver: function () {
         game.time.events.remove(this.timerDown);
-        console.log("Game Over");
         this.destroyNinjaGroup();
         this.bgMenu.visible = true;
         this.buttonPlay.visible = true;
@@ -156,7 +155,6 @@ GamePlayManager = {
     },
     showNinja: function () {
         var newNinja = this.getRandomNinja();
-        console.log("SHOW NINJA:"+ newNinja);
         if(newNinja != null) {
             newNinja.Appear();
         }
@@ -196,8 +194,6 @@ GamePlayManager = {
             index = game.rnd.integerInRange(0, amountNinjas-1)
             randomNinja = this.ninjaGroup.children[index];
         }
-
-        console.log("Index: "+index)
         return randomNinja;
     },
     increaseScore: function () {

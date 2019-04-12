@@ -4,7 +4,6 @@ Ninja = function (id, assetName, x0, y0, x1, y1, scale, angle, timeAnimation, ti
     this.inputEnabled = true; //this se refiere a nuestra funcion ninja. PErmite realizar click
     this.input.pixelPerfectClick = true; //Solo permite dar click en la imagen, no en lo transparente
     this.events.onInputDown.add( function(){
-        console.log("CLICK");
         this.kill();
         GamePlayManager.hitNinja(this.id, this.x, this.y, this.scale.x, this.angle);
         if (this.tweenIn != null) {
@@ -59,7 +58,6 @@ Ninja.prototype.Appear = function () {
 }
 
 Ninja.prototype.kill = function () {
-    console.log("Ninja Killllll!")
     if (this.tweenIn != null) {
         this.tweenIn.stop();
     }
