@@ -13,6 +13,7 @@ GamePlayManager = {
 
         game.load.spritesheet('smoke' , 'assets/img/smoke.png',125,125,20);
         game.load.spritesheet('buttonPlay', 'assets/img/buttonPlay.png', 200,76,2);
+        game.load.spritesheet('buttonContinue', 'assets/img/buttonContinue.png', 200,76,2);
         game.load.bitmapFont('fontWhite', 'assets/fonts/bitmapFonts/fontWhite.png', 'assets/fonts/bitmapFonts/fontWhite.fnt');
     },
     create: function(){
@@ -49,6 +50,10 @@ GamePlayManager = {
         this.buttonPlay = game.add.button(game.width/2, game.height*0.8, 'buttonPlay', this.startGame, this, 1, 0, 1, 0);
         this.buttonPlay.anchor.setTo(0.5);
 
+        this.buttonContinue = game.add.button(game.width/2, game.height*0.8, 'buttonContinue', this.nextLevel, this, 1, 0, 1, 0);
+        this.buttonContinue.anchor.setTo(0.5);
+        this.buttonContinue.visible =false;
+
 
 
         this.scoreTextTween  = game.add.tween(this.txtCurrentScore.scale).to({
@@ -58,9 +63,15 @@ GamePlayManager = {
 
     },
     startGame:function () {
+        this.level = 0;
         this.currentScore = 0;
         this.lives = 3;
         this.refreshArrayLives();
+        this.prepareLevel();
+        this.buttonContinue.visible = false;
+    },
+    nextLevel: function(){
+        this.level ++;
         this.prepareLevel();
     },
     refreshArrayLives: function(){
@@ -84,7 +95,7 @@ GamePlayManager = {
         this.destroyNinjaGroup();
         this.bgMenu.visible = true;
         this.buttonPlay.visible = true;
-        game.time.events.remove(this.timerShowNinja)
+        game.time.events.remove(this.timerShowNinja);
     },
     destroyNinjaGroup: function () {
         this.ninjaGroup.forEach(function (ninja) {
@@ -93,7 +104,7 @@ GamePlayManager = {
         this.ninjaGroup.removeAll(true); //Destuyendo todos los ninjas del grupo
     },
     prepareLevel: function () {
-
+        this.buttonContinue.visible = false;
         this.txtCurrentScore.text = this.currentScore.toString();
         this.buttonPlay.visible = false;
         this.bgMenu.visible = false;
@@ -134,9 +145,10 @@ GamePlayManager = {
     },
     levelComplete: function () {
         this.bgMenu.visible = true;
-        this.buttonPlay.visible = true;
+        this.buttonContinue.visible = true;
         this.destroyNinjaGroup();
         game.time.events.remove(this.timerDown);
+        game.time.events.remove(this.timerShowNinja);
     },
     callBackShowNinja: function () {
         this.timerShowNinja = game.time.events.add(1000, this.callBackShowNinja, this);
