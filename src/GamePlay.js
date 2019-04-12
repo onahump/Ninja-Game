@@ -53,7 +53,36 @@ GamePlayManager = {
     },
     startGame:function () {
         this.currentScore = 0;
+        this.lives = 3;
+        this.refreshArrayLives();
         this.prepareLevel();
+    },
+    refreshArrayLives: function(){
+        for(var i =0; i<this.arrayIconLives.length; i++){
+            this.arrayIconLives[i].visible = false;
+        }
+        for(var i=0; i<this.lives; i++){
+            this.arrayIconLives[i].visible = true;
+        }
+    },
+    looseLive: function () {
+        this.lives --;
+        this.refreshArrayLives();
+        if(this.lives<=0){
+            this.gameOver();
+        }
+    },
+    gameOver: function () {
+        console.log("Game Over");
+        this.destroyNinjaGroup();
+        this.bgMenu.visible = true;
+        this.buttonPlay.visible = true;
+    },
+    destroyNinjaGroup: function () {
+        this.ninjaGroup.forEach(function (ninja) {
+            ninja.kill();
+        },this);
+        this.ninjaGroup.removeAll(true); //Destuyendo todos los ninjas del grupo
     },
     prepareLevel: function () {
 
