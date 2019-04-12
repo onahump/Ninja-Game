@@ -44,16 +44,28 @@ Ninja.prototype.Appear = function () {
     this.tweenIn.onComplete.add(function () {
         this.tweenOut.start();
         this.tweenOut.onComplete.add(function () {
-            console.log("END ANIMATION");
+            GamePlayManager.looseLive();
+            this.kill();
             if (this.tweenIn != null) {
                 this.tweenIn.stop();
             }
             if (this.tweenOut != null) {
                 this.tweenOut.stop();
             }
-            this.kill();
         }, this);
     }, this);
 
     this.tweenIn.start();
+}
+
+Ninja.prototype.kill = function () {
+    console.log("Ninja Killllll!")
+    if (this.tweenIn != null) {
+        this.tweenIn.stop();
+    }
+    if (this.tweenOut != null) {
+        this.tweenOut.stop();
+    }
+
+    Phaser.Sprite.prototype.kill.call(this);
 }
