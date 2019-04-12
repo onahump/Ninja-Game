@@ -29,6 +29,14 @@ GamePlayManager = {
         this.arrayIconLives[1] = game.add.sprite(250, game.height - 45, 'iconLive');
         this.arrayIconLives[2] = game.add.sprite(300, game.height - 45, 'iconLive');
 
+        this.currentScore = 0;
+        this.txtCurrentScore = game.add.bitmapText(100,35,'fontWhite', '0', 55);
+        this.txtCurrentScore.anchor.setTo(0.5);
+
+        this.txtTimeLeft = game.add.bitmapText(950,35,'fontWhite', '', 55);
+        this.txtTimeLeft.anchor.setTo(0.5);
+
+
         var pixel = game.add.bitmapData(1,1);
         pixel.ctx.fillStyle = '#000000';
         pixel.ctx.fillRect(0,0,1,1);
@@ -41,9 +49,7 @@ GamePlayManager = {
         this.buttonPlay = game.add.button(game.width/2, game.height*0.8, 'buttonPlay', this.startGame, this, 1, 0, 1, 0);
         this.buttonPlay.anchor.setTo(0.5);
 
-        this.currentScore = 0;
-        this.txtCurrentScore = game.add.bitmapText(100,35,'fontWhite', '0', 55);
-        this.txtCurrentScore.anchor.setTo(0.5);
+
 
         this.scoreTextTween  = game.add.tween(this.txtCurrentScore.scale).to({
             x: [1, 1.5, 1],
@@ -73,6 +79,7 @@ GamePlayManager = {
         }
     },
     gameOver: function () {
+        game.time.events.remove(this.timerDown);
         console.log("Game Over");
         this.destroyNinjaGroup();
         this.bgMenu.visible = true;
@@ -91,6 +98,7 @@ GamePlayManager = {
         this.buttonPlay.visible = false;
         this.bgMenu.visible = false;
         var levelConfig = {
+            timeLeft:10,
             ninjas:[
                 {"sprite":"ninja", "x0":537, "y0":400, "x1":537, "y1":304, "scale":0.7, "angle":0, "timeAnimation":1500, "timeDelay":1500},
                 {"sprite":"ninja", "x0":746, "y0":-70, "x1":746, "y1":17, "scale":1, "angle":180, "timeAnimation":1500, "timeDelay":1500},
@@ -111,7 +119,24 @@ GamePlayManager = {
             this.ninjaGroup.add(ninja);
         }
 
+        this.timeLeft = levelConfig.timeLeft;
+        this.txtTimeLeft.text = this.timeLeft.toString();
         game.time.events.add(1000, this.callBackShowNinja, this);
+
+        this.timerDown = game.time.events.loop(1000, this.callBackTimerDown, this);
+    },
+    callBackTimerDown: function () {
+        this.timeLeft --;
+        this.txtTimeLeft.text = this.timeLeft.toString();
+        if (this.timeLeft<=0) {
+            this.levelComplete();
+        }
+    },
+    levelComplete: function () {
+        this.bgMenu.visible = true;
+        this.buttonPlay.visible = true;
+        this.destroyNinjaGroup();
+        game.time.events.remove(this.timerDown);
     },
     callBackShowNinja: function () {
         this.timerShowNinja = game.time.events.add(1000, this.callBackShowNinja, this);
