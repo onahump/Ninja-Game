@@ -70,10 +70,14 @@ GamePlayManager = {
         if(!ninjaAvailable){
             return null;
         }
-        var randomNinja = this.ninjaGroup.children[game.rnd.integerInRange(0, amountNinjas-1)];
+        var index = game.rnd.integerInRange(0, amountNinjas-1)
+        var randomNinja = this.ninjaGroup.children[index];
         while (randomNinja.alive) {
-            randomNinja = this.ninjaGroup.children[game.rnd.integerInRange(0, amountNinjas-1)];
+            index = game.rnd.integerInRange(0, amountNinjas-1)
+            randomNinja = this.ninjaGroup.children[index];
         }
+
+        console.log("Index: "+index)
         return randomNinja;
     },
 

@@ -5,6 +5,7 @@ Ninja = function (id, assetName, x0, y0, x1, y1, scale, angle, timeAnimation, ti
     this.input.pixelPerfectClick = true; //Solo permite dar click en la imagen, no en lo transparente
     this.events.onInputDown.add( function(){
         console.log("CLICK");
+        this.kill();
     }, this);
 
     this.id = id;
