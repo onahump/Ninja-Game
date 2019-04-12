@@ -35,14 +35,17 @@ GamePlayManager = {
         this.buttonPlay = game.add.button(game.width/2, game.height*0.8, 'buttonPlay', this.startGame, this, 1, 0, 1, 0);
         this.buttonPlay.anchor.setTo(0.5);
 
-        this.txtCurrentScore = game.add.bitmapText(100,35,'fontWhite', '555', 55);
+        this.currentScore = 0;
+        this.txtCurrentScore = game.add.bitmapText(100,35,'fontWhite', '0', 55);
         this.txtCurrentScore.anchor.setTo(0.5);
     },
     startGame:function () {
+        this.currentScore = 0;
         this.prepareLevel();
     },
     prepareLevel: function () {
 
+        this.txtCurrentScore.text = this.currentScore.toString();
         this.buttonPlay.visible = false;
         this.bgMenu.visible = false;
         var levelConfig = {
@@ -80,6 +83,7 @@ GamePlayManager = {
         }
     },
     hitNinja:function (id, x , y, scale, angle) {
+        this.increaseScore();
         var currentSmoke =  this.smokeGroup.getFirstDead();
         if (currentSmoke == null) {
             currentSmoke = this.smokeGroup.create(x,y, 'smoke');
@@ -117,7 +121,10 @@ GamePlayManager = {
         console.log("Index: "+index)
         return randomNinja;
     },
-
+    increaseScore: function () {
+      this.currentScore += 100;
+      this.txtCurrentScore.text = this.currentScore.toString();
+    },
     update: function(){
     }
 }
