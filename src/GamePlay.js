@@ -77,6 +77,7 @@ GamePlayManager = {
         this.destroyNinjaGroup();
         this.bgMenu.visible = true;
         this.buttonPlay.visible = true;
+        game.time.events.remove(this.timerShowNinja)
     },
     destroyNinjaGroup: function () {
         this.ninjaGroup.forEach(function (ninja) {
@@ -113,7 +114,7 @@ GamePlayManager = {
         game.time.events.add(1000, this.callBackShowNinja, this);
     },
     callBackShowNinja: function () {
-        game.time.events.add(1000, this.callBackShowNinja, this);
+        this.timerShowNinja = game.time.events.add(1000, this.callBackShowNinja, this);
         this.showNinja();
     },
     showNinja: function () {
