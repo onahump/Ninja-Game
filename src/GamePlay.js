@@ -9,10 +9,11 @@ GamePlayManager = {
         game.load.image('object1' , 'assets/img/objects1.png');
         game.load.image('object2' , 'assets/img/objects2.png');
         game.load.image('ninja' , 'assets/img/ninja.png');
+        game.load.image('iconLive', 'assets/img/iconLive.png');
+
         game.load.spritesheet('smoke' , 'assets/img/smoke.png',125,125,20);
         game.load.spritesheet('buttonPlay', 'assets/img/buttonPlay.png', 200,76,2);
         game.load.bitmapFont('fontWhite', 'assets/fonts/bitmapFonts/fontWhite.png', 'assets/fonts/bitmapFonts/fontWhite.fnt');
-
     },
     create: function(){
         game.add.sprite(0,0, 'background');
@@ -22,6 +23,11 @@ GamePlayManager = {
 
         game.add.sprite(0,0, 'object1');
         game.add.sprite(0,0, 'object2');
+
+        this.arrayIconLives = [];
+        this.arrayIconLives[0] = game.add.sprite(200, game.height - 45, 'iconLive');
+        this.arrayIconLives[1] = game.add.sprite(250, game.height - 45, 'iconLive');
+        this.arrayIconLives[2] = game.add.sprite(300, game.height - 45, 'iconLive');
 
         var pixel = game.add.bitmapData(1,1);
         pixel.ctx.fillStyle = '#000000';
