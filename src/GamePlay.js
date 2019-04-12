@@ -38,6 +38,12 @@ GamePlayManager = {
         this.currentScore = 0;
         this.txtCurrentScore = game.add.bitmapText(100,35,'fontWhite', '0', 55);
         this.txtCurrentScore.anchor.setTo(0.5);
+
+        this.scoreTextTween  = game.add.tween(this.txtCurrentScore.scale).to({
+            x: [1, 1.5, 1],
+            y: [1, 1.5, 1]
+        }, 500, Phaser.Easing.Elastic.Out, false, 0, 0, false);
+
     },
     startGame:function () {
         this.currentScore = 0;
@@ -124,6 +130,7 @@ GamePlayManager = {
     increaseScore: function () {
       this.currentScore += 100;
       this.txtCurrentScore.text = this.currentScore.toString();
+      this.scoreTextTween.start();
     },
     update: function(){
     }
